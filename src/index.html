@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>เสือกไอดีชาวบ้าน</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;900&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@100..700&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Noto+Sans+Thai:wght@100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.png" type="image/png" />
+</head>
+<body>
+  <div class="background"></div>
+  <div class="container">
+    <div class="header-wrapper">
+    <h1>เสือกไอดีชาวบ้าน</h1>
+  </div>
+
+    <form id="buzz-form">
+      <label>
+        *ให้ผมเรียกคุณว่าอะไรดี:
+        <input type="text" name="name" required />
+      </label><br />
+
+      <label>
+        *UID:
+        <input type="text" name="uid" required />
+      </label><br />
+
+      <label>
+        *ชื่อตัวละครที่อยากให้ดูอาร์ติแฟกต์:
+        <input type="text" name="character" required />
+      </label><br />
+
+      <label>
+        ข้อความเพิ่มเติม:
+        <textarea name="message" rows="5"></textarea>
+      </label><br />
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+  <!-- Popup modal container -->
+  <div id="popup" class="popup hidden">
+    <div class="popup-content">
+      <p id="popup-message"></p>
+      <button id="popup-close">Close</button>
+    </div>
+  </div>
+
+  <script src="form.js"></script>
+</body>
+</html>
