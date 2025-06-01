@@ -1,7 +1,8 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
+import db from './db.js';
 
-module.exports = (req, res) => {
+export default (req, res) => {
   const submissionsPath = path.join(__dirname, "submissionsData.json");
   if (!fs.existsSync(submissionsPath)) {
     return res.json([]);

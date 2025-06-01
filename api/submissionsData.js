@@ -1,2 +1,4 @@
+import data from './data.json' assert { type: 'json' };
+
 const submissions = [];
-module.exports = submissions;
+export default data;

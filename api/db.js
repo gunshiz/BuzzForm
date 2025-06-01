@@ -1,7 +1,7 @@
-const fs = require("fs");
-const path = require("path");
+import fs from 'fs';
+import path from 'path';
 
-const DB_FILE = path.join(__dirname, "data.json");
+const DB_FILE = path.join(process.cwd(), 'api', 'data.json');
 
 function loadDB() {
   if (!fs.existsSync(DB_FILE)) {
@@ -15,22 +15,22 @@ function saveDB(data) {
   fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
 }
 
-function getAll() {
+export function getAll() {
   return loadDB();
 }
 
-function add(entry) {
+export function add(entry) {
   const db = loadDB();
   db.push(entry);
   saveDB(db);
 }
 
-function findByUid(uid) {
+export function findByUid(uid) {
   const db = loadDB();
   return db.find((e) => e.uid === uid);
 }
 
-function updateByUid(uid, updates) {
+export function updateByUid(uid, updates) {
   const db = loadDB();
   const idx = db.findIndex((e) => e.uid === uid);
   if (idx !== -1) {
@@ -41,7 +41,7 @@ function updateByUid(uid, updates) {
   return null;
 }
 
-function removeByUid(uid) {
+export function removeByUid(uid) {
   let db = loadDB();
   const initialLen = db.length;
   db = db.filter((e) => e.uid !== uid);
@@ -52,15 +52,6 @@ function removeByUid(uid) {
   return false;
 }
 
-function clearDB() {
+export function clearDB() {
   saveDB([]);
 }
-
-module.exports = {
-  getAll,
-  add,
-  findByUid,
-  updateByUid,
-  removeByUid,
-  clearDB,
-};

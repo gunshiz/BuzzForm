@@ -26,7 +26,7 @@ form.addEventListener('submit', async (e) => {
     });
 
     if (res.ok) {
-      showPopup('ส่งข้อมูลเรียบร้อยแล้ว!');
+      showPopup('ส่งข้อมูลเรียบร้อย!');
       form.reset();
     } else {
       const error = await res.json();
@@ -60,3 +60,22 @@ function showMessage(text, color) {
     messageContainer.textContent = '';
   }, 3000);
 }
+
+const showRulesBtn = document.getElementById('showRulesBtn');
+const closeRulesBtn = document.getElementById('closeRulesBtn');
+const rulesPopup = document.getElementById('rulesPopup');
+
+showRulesBtn.addEventListener('click', () => {
+  rulesPopup.classList.add('show');
+});
+
+closeRulesBtn.addEventListener('click', () => {
+  rulesPopup.classList.remove('show');
+});
+
+// Optional: clicking outside popup-content closes popup
+rulesPopup.addEventListener('click', e => {
+  if (e.target === rulesPopup) {
+    rulesPopup.classList.remove('show');
+  }
+});

@@ -10,7 +10,7 @@ async function init(pwd) {
   const container = document.querySelector(".container");
   container.childNodes.forEach((n) => n.remove());
   if (submissions.length === 0) {
-    document.querySelector(".loading a").innerText = "No submissions yet.";
+    document.querySelector(".loading a").innerText = "ใครคนแรกน้า";
     return;
   }
   document.querySelector(".loading").classList.add("hide");
@@ -22,7 +22,7 @@ async function init(pwd) {
     submissionDiv.setAttribute("data-index", i);
     submissionDiv.className = "submission";
     submissionDiv.innerHTML = `
-      <h3>${sanitize(number)}. ${sanitize(submission.name)} (<a href="#" class="copy-uid">${sanitize(
+      <h3><b>${sanitize(number)}</b>. ${sanitize(submission.name)} (<a href="#" class="copy-uid">${sanitize(
       submission.uid
     )} 📋</a>)</h3>
       <p>ตัวละคร: ${sanitize(submission.character)}</p>
@@ -37,9 +37,9 @@ async function init(pwd) {
       if (ev.target.tagName === "A") return;
       modal(
         `
-      <h3>${sanitize(submission.name)} (<a href="#" class="copy-uid">${sanitize(
-      submission.uid
-    )}</a>)</h3>
+      <h3><b>${sanitize(number)}</b>. ${sanitize(submission.name)} (<a href="#" class="copy-uid">${sanitize(
+        submission.uid
+      )}</a>)</h3>
       <p>ตัวละคร: ${sanitize(submission.character)}</p>
       <p>ข้อความ: ${sanitize(
           submission.message || "ไม่มีข้อความที่ส่งมา"
@@ -101,16 +101,21 @@ async function init(pwd) {
 }
 
 function auth() {
-  document.querySelector(".loading a").innerText = "Login required";
+  const splash = document.querySelector(".loading a");
+  splash.innerText = "Login required";
+  /**
+   * @type {HTMLInputElement}
+   */
   const input = document.querySelector(".loading input");
   input.hidden = false;
   input.focus();
-  input.value = "";
   input.onkeyup = (e) => {
     if (e.key === "Enter") {
+      splash.innerText = "Logging in...";
       input.hidden = true;
       init(input.value);
-    }
+      input.value = "";
+    } else init(input.value);
   };
 }
 

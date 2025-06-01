@@ -8,38 +8,55 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@100..700&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Noto+Sans+Thai:wght@100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="favicon.png" type="image/png" />
+  <link rel="icon" href="favicon.webp" type="image/webp" />
 </head>
 <body>
   <div class="background"></div>
   <div class="container">
     <div class="header-wrapper">
-    <h1>เสือกไอดีชาวบ้าน</h1>
-  </div>
+      <h1>เสือกไอดีชาวบ้าน</h1>
+      <button id="showRulesBtn" style="margin-top: 10px;">📜 ดูกฎการลงคิว</button>
+    </div>
 
-    <form id="buzz-form">
-      <label>
-        *ให้ผมเรียกคุณว่าอะไรดี:
-        <input type="text" name="name" required />
-      </label><br />
+    <div id="rulesPopup" class="popup hidden">
+      <div class="popup-content">
+        <h2>📜 กฎการลงคิว</h2>
+        <ol style="text-align: left;">
+        <ol>
+          <li>คิวจะใช้ระบบเรียง หรืออาจสุ่มบางครั้ง แต่ถ้ามีโดเนทลัดคิวมาจะดูไอดีที่โดเนทมาก่อน</li>
+          <li>คิวจะมีการลบใหม่หมดทุกครั้งหลังจบสตรีม (ต้องลงใหม่ทุกครั้งนะคับถ้าไม่ได้คิวในครั้งที่แล้ว ครั้งหน้าก็ลงใหม่ได้ตามปกติ)</li>
+          <li>สำหรับการลงคิวในนี้ จะดูให้แค่<b><u>ตัวละครเดียวเท่านั้น</u></b> แต่หากเป็นโดเนทลัดคิว สามารถดูได้สูงสุด 8 ตัว</li>
+        </ol>
+        <button id="closeRulesBtn">ปิด</button>
+      </div>
+    </div>
 
-      <label>
-        *UID:
-        <input type="text" name="uid" required />
-      </label><br />
+    <div class="content"> <!-- new wrapper inside container -->
+      <form id="buzz-form">
+        <label>
+          *ให้ผมเรียกคุณว่าอะไรดี:
+          <input type="text" name="name" />
+        </label>
 
-      <label>
-        *ชื่อตัวละครที่อยากให้ดูอาร์ติแฟกต์:
-        <input type="text" name="character" required />
-      </label><br />
+        <label>
+          *UID:
+          <input type="text" name="uid" />
+        </label>
 
-      <label>
-        ข้อความเพิ่มเติม:
-        <textarea name="message" rows="5"></textarea>
-      </label><br />
+        <label>
+          *ชื่อตัวละครที่อยากให้ดูอาร์ติแฟกต์:
+          <input type="text" name="character" />
+        </label><br />
 
-      <button type="submit">Submit</button>
-    </form>
+        <label>
+          ข้อความเพิ่มเติม:
+          <textarea name="message" rows="3"></textarea>
+        </label>
+
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
   </div>
   <!-- Popup modal container -->
   <div id="popup" class="popup hidden">

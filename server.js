@@ -1,26 +1,27 @@
-const express = require('express');
-const cors = require('cors');
-const cookieParser = require('cookie-parser');
-const path = require('path');
-
-const submitAPI = require('./api/submit');
+import express from 'express';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import path from 'path';
+import compression from 'compression';
+import submitAPI from './api/submit.js';
+import { startBot } from './discord/bot.js';
 
 const app = express();
-const PORT = 3000;
+const PORT = parseInt(process.env.PORT || "3000");
 
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
+app.use(compression());
 
-// Cloudflare tunnel IP filtering support
 app.set("trust proxy", true);
-
-// Serve static files from buzz folder (this folder itself)
 app.use(express.static(path.join(__dirname, "src")));
 
-// API routes under /api/submit
 app.use('/api/submit', submitAPI);
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
+
+// Start bot
+if (!process.argv.includes("--no-bot")) startBot();
