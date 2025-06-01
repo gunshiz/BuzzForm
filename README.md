@@ -1,3 +1,5 @@
+## *https://buzz.gunshiz.top/*
+
 # Setup step
 discord bot
 1. bun discord/register.js
