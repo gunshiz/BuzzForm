@@ -1,14 +1,18 @@
-setup step discord bot
+# Setup step
+discord bot
 1. bun discord/register.js
 2. bun bot.js
 
-setup step website
+website
 1. bun server.js
 
-https://localhost:3000/ for submit page
+## Your website will be like this
+https://localhost:3000/ for submit page \
 https://localhost:3000/admin for see all sumbmit
 
-discord/config.json
+# requirement
+**discord/config.json**
+```
 {
  "token" : "YourTokenBot",
  "clientId": "ClientBotId",
@@ -17,3 +21,4 @@ discord/config.json
  "webhookName": "Webhook name",
  "webhookAvatar" : "PFP Webhook"
 }
+```
