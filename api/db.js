@@ -1,57 +1,92 @@
 import fs from 'fs';
 import path from 'path';
 
-const DB_FILE = path.join(process.cwd(), 'api', 'data.json');
-
-function loadDB() {
-  if (!fs.existsSync(DB_FILE)) {
-    fs.writeFileSync(DB_FILE, JSON.stringify([]));
+class Database {
+  constructor(dbFile) {
+    this.dbFile = dbFile || path.join(process.cwd(), 'api', 'data.json');
   }
-  const data = fs.readFileSync(DB_FILE, "utf-8");
-  return JSON.parse(data);
-}
 
-function saveDB(data) {
-  fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
-}
-
-export function getAll() {
-  return loadDB();
-}
-
-export function add(entry) {
-  const db = loadDB();
-  db.push(entry);
-  saveDB(db);
-}
-
-export function findByUid(uid) {
-  const db = loadDB();
-  return db.find((e) => e.uid === uid);
-}
-
-export function updateByUid(uid, updates) {
-  const db = loadDB();
-  const idx = db.findIndex((e) => e.uid === uid);
-  if (idx !== -1) {
-    db[idx] = { ...db[idx], ...updates };
-    saveDB(db);
-    return db[idx];
+  loadDB() {
+    if (!fs.existsSync(this.dbFile)) {
+      fs.writeFileSync(this.dbFile, JSON.stringify([]));
+    }
+    const data = fs.readFileSync(this.dbFile, "utf-8");
+    return JSON.parse(data);
   }
-  return null;
-}
 
-export function removeByUid(uid) {
-  let db = loadDB();
-  const initialLen = db.length;
-  db = db.filter((e) => e.uid !== uid);
-  if (db.length !== initialLen) {
-    saveDB(db);
-    return true;
+  saveDB(data) {
+    fs.writeFileSync(this.dbFile, JSON.stringify(data, null, 2));
   }
-  return false;
+
+  getAll() {
+    return this.loadDB();
+  }
+
+  add(entry) {
+    const db = this.loadDB();
+    db.push(entry);
+    this.saveDB(db);
+  }
+
+  clearDB() {
+    this.saveDB([]);
+  }
+
+  remove(i) {
+    const db = this.loadDB();
+    if (i < 0 || i >= db.length) {
+      throw new Error("Index out of bounds");
+    }
+    db.splice(i, 1);
+    this.saveDB(db);
+  }
 }
 
-export function clearDB() {
-  saveDB([]);
+class KV {
+  constructor(dbFile) {
+    this.dbFile = dbFile || path.join(process.cwd(), "api", "data.json");
+  }
+
+  loadDB() {
+    if (!fs.existsSync(this.dbFile)) {
+      fs.writeFileSync(this.dbFile, JSON.stringify({}));
+    }
+    const data = fs.readFileSync(this.dbFile, "utf-8");
+    return JSON.parse(data);
+  }
+
+  saveDB(data) {
+    fs.writeFileSync(this.dbFile, JSON.stringify(data, null, 2));
+  }
+
+  getAll() {
+    return this.loadDB();
+  }
+
+  set(key, entry) {
+    const db = this.loadDB();
+    db[key] = entry;
+    this.saveDB(db);
+  }
+
+  get(key) {
+    const db = this.loadDB();
+    return db[key];
+  }
+
+  clearDB() {
+    this.saveDB({});
+  }
+
+  remove(i) {
+    const db = this.loadDB();
+    if (i < 0 || i >= db.length) {
+      throw new Error("Index out of bounds");
+    }
+    db.splice(i, 1);
+    this.saveDB(db);
+  }
 }
+
+export default Database;
+export { KV };

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>รวมคนส่ง</title>
+    <title>รวมทุกคิว - Admin</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;700&display=swap"
       rel="stylesheet"
@@ -21,12 +21,21 @@
     <img class="background" src="/bg/bg6.gif" loading="lazy" />
     <div class="loading">
       <a>Loading...</a
-      ><input class="auth" type="password" placeholder="Password..."hidden />
+      ><input class="auth" type="password" placeholder="รหัส ไม่บอก" hidden />
     </div>
     <div class="search">
-      <input type="text" id="search" placeholder="ค้นหาโดยใช้ชื่อ, uid, ตัวละคร หรือข้อความ" />
+      <input
+        type="text"
+        id="search"
+        placeholder="ค้นหาโดยใช้ชื่อ, uid, ตัวละคร หรือข้อความ"
+      />
       <button class="delete">ลบทั้งหมด</button>
-      <button class="count">Count: #</button>
+      <button class="count">Count: 0</button>
+    </div>
+    <div class="limit hide">
+      <input type="number" class="input" min="1" max="1000" placeholder="จำกัดคิว" />
+      <!-- Share same button between disable, enable and set limit -->
+      <button class="apply">Disable</button>
     </div>
     <div class="container"></div>
   </body>

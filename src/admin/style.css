@@ -81,20 +81,29 @@ body {
 }
 
 @keyframes fade {
-	0% {
-		opacity: 0;
-	}
+  0% {
+    opacity: 0;
+  }
 
-	100% {
-		opacity: 1;
-	}
+  100% {
+    opacity: 1;
+  }
 }
 
-button input {
+button,
+input {
   font-family: var(--main-font);
   background-color: var(--background-color);
   color: var(--text-color);
+  border: none;
   font-size: 16px;
+}
+
+button:hover {
+  filter: brightness(0.9);
+  &:active {
+    filter: brightness(0.8);
+  }
 }
 
 .search {
@@ -104,21 +113,19 @@ button input {
   height: 35px;
   display: grid;
   z-index: 5;
-  grid-template-columns: 1fr repeat(2, 100px);
+  grid-template-columns: 1fr 100px 150px;
   padding-left: 35px;
   padding-right: 35px;
 }
 
 .search input {
   padding: 8px;
-  border: none;
   border-bottom-left-radius: 15px;
 }
 
 .delete {
-  border: none;
   cursor: pointer;
-  
+
   &:hover {
     background-color: var(--button-hover);
   }
@@ -126,8 +133,32 @@ button input {
 
 .count {
   background-color: gray;
-  border: none;
-  border-bottom-right-radius: 15px;
+  &.disabled {
+    background-color: #e22;
+  }
+}
+
+.limit {
+  position: absolute;
+  top: 40px;
+  right: 35px;
+  z-index: 5;
+  display: flex;
+  width: 150px;
+  flex-direction: column;
+  * {
+    background-color: gray;
+  }
+  ::placeholder {
+    color: #fff;
+  }
+  .apply {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+  &.hide {
+    display: none;
+  }
 }
 
 .container {
@@ -145,7 +176,7 @@ button input {
   color: #eee;
   margin-bottom: 1.5rem;
   line-height: 1.6;
-  font-family: 'Anuphan', sans-serif;
+  font-family: "Anuphan", sans-serif;
   background: rgba(255, 255, 255, 0.05);
   padding: 10px 15px;
   border-radius: 10px;
@@ -163,21 +194,21 @@ button input {
   backdrop-filter: blur(5px);
   z-index: 1000;
   animation: fade 0.5s ease 0s 1 normal forwards;
-  
+
   &.hide {
     display: none;
   }
-  
+
   .modal-content {
     background-color: var(--background-color);
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     color: var(--text-color);
     text-align: center;
     max-width: 80%;
-    
-    .close {
+
+    .close, .next {
       padding: 0 7px 0 7px;
       background-color: transparent;
       color: var(--text-color);
@@ -185,11 +216,14 @@ button input {
       border-radius: 5px;
       cursor: pointer;
       font-size: 20px;
-      float: right;
-
+      user-select: none;
+      
       &:hover {
         background-color: var(--button-hover);
       }
+    }
+    .close {
+      float: right;
     }
   }
 }
