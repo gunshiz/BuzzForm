@@ -29,9 +29,9 @@ module.exports = {
         throw new Error('Server did not respond with success');
       }
 
-      await interaction.reply('✅ ส่งข้อมูลไปเรียยร้อย!');
+      await interaction.reply({ content: '✅ ส่งข้อมูลไปเรียยร้อย!', ephemeral: true });
     } catch (error) {
-      await interaction.reply(`❌ ส่งข้อมูลไม่สำเร็จ โปรดลองอีกครั้งภายหลัง\n-# ${error.response?.data?.error || error.message}`);
+      await interaction.reply({content: `❌ ส่งข้อมูลไม่สำเร็จ โปรดลองอีกครั้งภายหลัง\n-# ${error.response?.data?.error || error.message}`, ephemeral: true });
     }
   }
 };
